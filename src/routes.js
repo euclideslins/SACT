@@ -19,4 +19,9 @@ module.exports = app => {
    app.route('/criteria')
       .get(CriterionController.index)
       .post(CriterionController.store);
+    
+   app.route('/criteria/:id')
+      .get(CriterionController.show)
+      .put(CriterionController.update)
+      .delete(CriterionController.delete)
 }
