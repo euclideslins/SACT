@@ -4,8 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     rate: DataTypes.DOUBLE
   }, {});
-  Criterion.associate = function(models) {
-    // associations can be defined here
+  Criterion.associate = function (models) {
+    Criterion.belongsToMany(models.Section, {
+      through: 'SectionCriteria',
+      as: 'sections',
+      foreignKey: 'CriterionId'
+    })
   };
   return Criterion;
 };
