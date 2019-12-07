@@ -1,13 +1,13 @@
-const Project = require("../models")
+const { Project } = require("../models")
 const Sequelize = require('sequelize');
 const Operation = Sequelize.Op;
 
 
 module.exports = {
-    Index(req, res){
+    Index(req, res) {
         Project.findAll()
-         .then(projects => res.json(projects))
-         .catch(err => res.status(500).send(err));
+            .then(projects => res.json(projects))
+            .catch(err => res.status(500).send({ "error": err }));
     },
 
 
@@ -20,22 +20,13 @@ module.exports = {
 
     },
 
-    delete(req, res){
-        const projectId = req.params.data;
-        try {
-            const result = Project.findOne({
-                where: {
-                    id:projectId
-                }
-            })
-        } catch (error) {
-            return res.status(500).send(error);        
-        }
+    delete(req, res) {
+        const { id } = req.params;
 
         Project.destroy({
-            where:{
-                id:projectId    
-          }
+            where: {
+                id
+            }
         })
             .then(_ => res.status(204).send())
             .catch(err => res.status(500).send(err));
@@ -44,45 +35,37 @@ module.exports = {
 
 
 
-    async update(req, res){
-        const project = {... req.body};
-        const projectId = req.params.data;
+    async update(req, res) {
+        const { id } = req.params;
 
         try {
-            let result = await Project.findAll({
-                where: {
-                    nome: Project.name
-                }
-            });
-        } catch (error) {
-            
-        }
+            const { ...data } = req.body;
 
-        Project.findOne({
-            where: {
-                id: projectId
-            }
-        }).then(result => {
-            if (result) {
-                result.update({
-                    ...project,
-                })
-                    .then(_ => res.status(204).send())
-                    .catch(err => res.status(500).send(err));
-            }
-        })
+            project = await Project.findOne({
+                where: {
+                    id
+                }
+            })
+            
+            project.update(data);
+
+            return res.status(204).send();
+
+        } catch (err) {
+            return res.status(500).send({ "error": err });
+        }
     },
 
 
-    show(req,res){
+    show(req, res) {
         let checkId = false;
-        const projectData = req.params.data;
+        const {id} = req.params;
 
-        if (!isNaN(projectData)) checkId = true;
+        if (!isNaN(id)) checkId = true;
 
         if (checkId) {
-            City.findOne({
-                where: { id: projectData }
+            Project.findOne({
+                where: { id }
             })
                 .then(project => res.json(project))
                 .catch(err => res.status(500).send(err));
@@ -90,7 +73,7 @@ module.exports = {
         else {
             Project.findAll({
                 where: {
-                    nome: { [Operation.like]: `%${projectData}%` }
+                    name: { [Operation.like]: `%${id}%` }
                 }
             })
                 .then(projects => res.json(projects))

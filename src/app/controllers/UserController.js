@@ -4,20 +4,28 @@ const Operation = Sequelize.Op;
 
 module.exports = {
 
-    Index(req,res){
-        User.findAll()
+    Index(req, res) {
+        User.findAll({
+            include: [
+                {
+                    model: Project,
+                    as: 'projects',
+                    through: { attributes: [] }
+                }
+            ]
+        })
             .then(users => res.json(users))
-            .catch(err => res.status(500).send(err));
+            .catch(err => res.status(500).send({ "error": err }));
     },
 
-    store(req, res){
+    async store(req, res) {
         try {
-            const { project, ...data } = req.body;
+            const { projects, ...data } = req.body;
 
             const user = await User.create(data);
 
-            if (project && project.length > 0) {
-                user.setProject(project);
+            if (projects && projects.length > 0) {
+                user.setProjects(projects);
             }
 
             return res.status(200).send({ user });
@@ -35,7 +43,7 @@ module.exports = {
             include: [
                 {
                     model: Project,
-                    as: 'project',
+                    as: 'projects',
                     through: { attributes: [] }
                 }
             ]
@@ -48,18 +56,18 @@ module.exports = {
         const { id } = req.params;
 
         try {
-            const { project, ...data } = req.body;
+            const { projects, ...data } = req.body;
 
             user = await User.findOne({
                 where: {
                     id
                 }
             })
-            
+
             user.update(data);
 
-            if (project && project.length > 0) {
-                user.setProject(project);
+            if (projects && projects.length > 0) {
+                user.setProjects(projects);
             }
             return res.status(204).send();
 
@@ -69,7 +77,7 @@ module.exports = {
     },
 
     async delete(req, res) {
-        const {id} = req.params.data;
+        const { id } = req.params;
 
         User.destroy({
             where: { id }

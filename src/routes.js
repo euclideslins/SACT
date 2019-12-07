@@ -1,13 +1,18 @@
 const UserController = require("./app/controllers/UserController");
 const ProjectController = require("./app/controllers/ProjectController");
+const Login = require('./app/controllers/Authenticate/Login');
 
-// console.log(UserController.Index)
+const auth = require('./app/middlewares/UserAuthenticate');
+
+
 module.exports = app => {
    
 
     app.post('/validateToken', Login.validateToken);
+    app.post('/login', Login.signIn);
 
     app.route('/users')
+    //   .all(auth)
       .get(UserController.Index)
       .post(UserController.store);
 
@@ -17,10 +22,12 @@ module.exports = app => {
         .delete(UserController.delete);    
 
     app.route('/projects')
+        // .all(auth)
         .get(ProjectController.Index)
         .post(ProjectController.store);
 
-    app.route('/projects:id')
+    app.route('/projects/:id')
+        // .all(auth)
         .get(ProjectController.show)
         .put(ProjectController.update)
         .delete(ProjectController.delete);
