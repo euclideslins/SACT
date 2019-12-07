@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./routes");
 const { server } = require('./.env');
@@ -14,6 +13,6 @@ routes(app);
 
 app.listen(server.port, () => {
   console.log(
-    `Backend executado em ${server.host} na porta ${server.port}`
+    `Backend is working. Access ${server.host}:${server.port}`
   );
 });
