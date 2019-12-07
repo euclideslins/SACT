@@ -7,6 +7,15 @@ module.exports = (sequelize, DataTypes) => {
     members: DataTypes.STRING,
     obs: DataTypes.TEXT
   }, {});
+
+
+  Section.associate = function (models) {
+    Section.belongsToMany(models.User, {
+      through: 'user_projects',
+      as: 'user',
+      foreignKey: 'projectId'
+    })
+  };
   Project.associate = function(models) {
     // associations can be defined here
   };

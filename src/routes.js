@@ -2,15 +2,13 @@ const UserController = require("./app/controllers/UserController");
 const ProjectController = require("./app/controllers/ProjectController");
 
 // console.log(UserController.Index)
-
-
 module.exports = app => {
-    // app.route('/users')
+   
 
-////
+    app.post('/validateToken', Login.validateToken);
 
     app.route('/users')
-      .get(UserController.Index.bind(this))
+      .get(UserController.Index)
       .post(UserController.store);
 
     app.route('/users/:id')

@@ -6,20 +6,18 @@ const Operation = Sequelize.Op;
 module.exports = {
     Index(req, res){
         Project.findAll()
-        .then(projects => res.json(projects))
-        .catch(err => res.status(500).send(err))
+         .then(projects => res.json(projects))
+         .catch(err => res.status(500).send(err));
     },
 
 
-    store(req, res){
-        try {
-            console.log("funfou");
-        } catch (error) {
-            return res.status(400).send(error);
-        }
-        Project.create(projects)
+    store(req, res) {
+        const project = { ...req.body };
+
+        Project.create(project)
             .then(_ => res.status(204).send())
-            .catch(err => res.status(500).send(err));
+            .catch(err => res.status(500).send({ "error": err }));
+
     },
 
     delete(req, res){
