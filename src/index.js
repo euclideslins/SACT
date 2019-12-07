@@ -11,6 +11,8 @@ app.use(express.json());
 
 routes(app);
 
+process.setMaxListeners(0);
+
 app.listen(server.port, () => {
   console.log(
     `Backend is working. Access ${server.host}:${server.port}`

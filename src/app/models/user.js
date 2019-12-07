@@ -10,8 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     institution: DataTypes.STRING,
     status: DataTypes.STRING
   }, {});
-  User.associate = function(models) {
-    // associations can be defined here
+
+  User.associate = function (models) {
+    User.belongsToMany(models.Project, {
+      through: 'user_projects',
+      as: 'projects',
+      foreignKey: 'userId'
+    })
   };
   return User;
 };

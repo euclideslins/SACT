@@ -7,8 +7,13 @@ module.exports = (sequelize, DataTypes) => {
     members: DataTypes.STRING,
     obs: DataTypes.TEXT
   }, {});
-  Project.associate = function(models) {
-    // associations can be defined here
+
+  Project.associate = function (models) {
+    Project.belongsToMany(models.User, {
+      through: 'user_projects',
+      as: 'user',
+      foreignKey: 'projectId'
+    })
   };
   return Project;
 };
