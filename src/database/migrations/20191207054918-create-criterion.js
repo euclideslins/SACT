@@ -14,9 +14,6 @@ module.exports = {
       rate: {
         type: Sequelize.DOUBLE
       },
-      section: {
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

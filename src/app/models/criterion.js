@@ -2,8 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Criterion = sequelize.define('Criterion', {
     name: DataTypes.STRING,
-    rate: DataTypes.DOUBLE,
-    section: DataTypes.INTEGER
+    rate: DataTypes.DOUBLE
   }, {});
   Criterion.associate = function(models) {
     // associations can be defined here
