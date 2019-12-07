@@ -1,12 +1,12 @@
-#SACT API
+# SACT API
 
-##1 - Informações Iniciais: 
+## 1 - Informações Iniciais: 
 
 - Linguagem: JavaScript (NodeJS);
 - Banco de dados: MySQL;
 - Biblioteca para uso do banco de dados: Sequelize. 
 
-##2 - Estrutura de pastas:
+## 2 - Estrutura de pastas:
 
 - src: Pasta que possui todos os códigos escritos pelos desenvolvedores;
 - src/index.js: Arquivo principal da API que faz a mesma funcionar;
@@ -18,11 +18,12 @@
 - src/database/migrations: migrações do banco de dados;
 - src/database/seeders: seeders do banco de dados.
 
-##3 - Rotas:
-*** OBS: *** Todas as entradas/saídas são em formato JSON. 
+## 3 - Rotas:
+***OBS:*** Todas as entradas/saídas são em formato JSON. 
 ### 3.1 - Critérios 
-     - #### Criar
+#### Criar
        POST: _/criteria_
+      
        ```
        Entrada esperada: 
 
@@ -45,7 +46,8 @@
 
        Status da requisição: 500
        ```
-     - #### Mostrar todos
+       
+ #### Mostrar todos
        GET: _/criteria_
        ```
        Saída esperada: 
@@ -76,7 +78,7 @@
            "error": "exemplo de erro"
        }
        ```
-     - #### Mostrar um
+ #### Mostrar um
        GET: _/criteria/id_
        ```
        Saída esperada: 
@@ -97,7 +99,7 @@
            "error": "exemplo de erro"
        }
        ```
-     - #### Atualizar
+#### Atualizar
        PUT: _/criteria/id_
        ```
        Entrada esperada: 
@@ -123,7 +125,7 @@
 
        Status da requisição: 500
        ```
-     - #### Remover
+#### Remover
        DELETE: _/criteria/id_
        ```
        Saída esperada: 
@@ -138,7 +140,7 @@
        }
        ```
 ### 3.2 - Seção 
-     - #### Criar
+#### Criar
        POST: _/sections_
        ```
        Entrada esperada: 
@@ -164,7 +166,7 @@
 
        Status da requisição: 500
        ```
-     - #### Mostrar todos
+#### Mostrar todos
        GET: _/sections_
        ```
        Saída esperada: 
@@ -213,7 +215,7 @@
            "error": "exemplo de erro"
        }
        ```
-     - #### Mostrar um
+ #### Mostrar um
        GET: _/sections/id_
        ```
        Saída esperada: 
@@ -243,7 +245,7 @@
            "error": "exemplo de erro"
        }
        ```
-     - #### Atualizar
+ #### Atualizar
        PUT: _/sections/id_
        ```
        Entrada esperada: 
@@ -269,7 +271,7 @@
 
        Status da requisição: 500
        ```
-     - #### Remover
+ #### Remover
        DELETE: _/sections/id_
        ```
        Saída esperada: 
