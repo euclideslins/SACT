@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Criterion = sequelize.define('Criterion', {
     name: DataTypes.STRING,
-    rate: DataTypes.DOUBLE
+    // rate: DataTypes.DOUBLE
   }, {});
   Criterion.associate = function (models) {
     Criterion.belongsToMany(models.Section, {
