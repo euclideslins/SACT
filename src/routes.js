@@ -28,7 +28,7 @@ module.exports = app => {
         .post(ProjectController.store);
 
     app.route('/projects/:id')
-        // .all(auth)
+        .all(auth)
         .get(ProjectController.show)
         .put(ProjectController.update)
         .delete(ProjectController.delete);

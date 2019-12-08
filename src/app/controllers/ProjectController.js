@@ -1,4 +1,4 @@
-const { Project, Section } = require("../models");
+const { Project, Section, Criterion } = require("../models");
 const Sequelize = require('sequelize');
 const Operation = Sequelize.Op;
 
@@ -10,7 +10,12 @@ module.exports = {
                 {
                     model: Section,
                     as: 'sections',
-                    through: { attributes: [] }
+                    through: { attributes: [] },
+                },
+                {
+                    model: Criterion,
+                    as: 'criteria',
+                    through: { attributes: [] },
                 }
             ]
         })
@@ -20,12 +25,16 @@ module.exports = {
 
     async store(req, res) {
         try {
-            const { sections, ...data } = req.body;
+            const { criteria, sections, ...data } = req.body;
 
             const project = await Project.create(data);
 
             if (sections && sections.length > 0) {
                 project.setSections(sections);
+            }
+
+            if (criteria && criteria.length > 0) {
+                project.setCriteria(criteria);
             }
 
             return res.status(200).send(project);
@@ -52,22 +61,25 @@ module.exports = {
         const { id } = req.params;
 
         try {
-            const { sections,...data } = req.body;
+            const { criteria, sections, ...data } = req.body;
 
             project = await Project.findOne({
                 where: {
                     id
                 }
-            })
+            });
 
             project.update(data);
 
-            if(sections && sections.length > 0)
-            {
+            if (sections && sections.length > 0) {
                 project.setSections(sections);
             }
 
-            return res.status(204).send();
+            if (criteria && criteria.length > 0) {
+                project.setCriteria(criteria);
+            }
+
+            return res.status(200).send(project);
 
         } catch (err) {
             return res.status(500).send({ "error": err });
@@ -88,6 +100,11 @@ module.exports = {
                         model: Section,
                         as: 'sections',
                         through: { attributes: [] }
+                    },
+                    {
+                        model: Criterion,
+                        as: 'criteria',
+                        through: { attributes: [] },
                     }
                 ]
             })
@@ -104,6 +121,11 @@ module.exports = {
                         model: Section,
                         as: 'sections',
                         through: { attributes: [] }
+                    },
+                    {
+                        model: Criterion,
+                        as: 'criteria',
+                        through: { attributes: [] },
                     }
                 ]
             })
@@ -111,5 +133,4 @@ module.exports = {
                 .catch(err => res.status(500).send(err));
         }
     }
-
 }

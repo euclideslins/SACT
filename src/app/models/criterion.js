@@ -10,6 +10,12 @@ module.exports = (sequelize, DataTypes) => {
       as: 'sections',
       foreignKey: 'CriterionId'
     })
+
+    Criterion.belongsToMany(models.Project, {
+      through: 'ProjectCriteria',
+      as: 'projects',
+      foreignKey: 'CriterionId'
+    });
   };
   return Criterion;
 };
