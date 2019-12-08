@@ -13,7 +13,13 @@ module.exports = (sequelize, DataTypes) => {
       through: 'user_projects',
       as: 'user',
       foreignKey: 'projectId'
-    })
+    });
+
+    Project.belongsToMany(models.Section, {
+      through: 'ProjectSections',
+      as: 'sections',
+      foreignKey: 'ProjectId'
+    });
   };
   return Project;
 };

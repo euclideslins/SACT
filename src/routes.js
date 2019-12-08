@@ -7,8 +7,6 @@ const Login = require('./app/controllers/Authenticate/Login');
 
 const auth = require('./app/middlewares/UserAuthenticate');
 
-
-
 module.exports = app => {
 
     app.post('/validateToken', Login.validateToken);
