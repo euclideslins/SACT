@@ -60,7 +60,7 @@ module.exports = app => {
    app.route('/prc')
       .get(ProjectCriterionController.index)
 
-   app.route('/prc/:projectid/:criterionid')
+   app.route('/prc/:projectid/:criterionid/:userid')
       .get(ProjectCriterionController.show)
       .put(ProjectCriterionController.update)
       .delete(ProjectCriterionController.delete);

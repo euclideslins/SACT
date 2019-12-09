@@ -8,13 +8,31 @@ module.exports = {
             .catch(err => res.status(500).send({ "error": err }));
     },
 
+    store(req, res) {
+        const { rate } = req.body;
+        const data = {
+            CriterionId: req.params.criterionid,
+            ProjectId: req.params.projectid,
+            UserId: req.params.userid,
+            rate
+        }
+        /*
+            Criterio
+        */
+        ProjectCriteria.create(data)
+                    .then(_ => res.status(204).send())
+                    .catch(err => res.status(500).send({ "error": err }));
+
+    },
+
     update(req, res) {
         const { rate } = req.body;
 
         ProjectCriteria.findOne({
             where: {
                 CriterionId: req.params.criterionid,
-                ProjectId: req.params.projectid
+                ProjectId: req.params.projectid,
+                UserId: req.params.userid
             }
         }).then(result => {
             result.update({ rate });
@@ -27,7 +45,8 @@ module.exports = {
         ProjectCriteria.findOne({
             where: {
                 CriterionId: req.params.criterionid,
-                ProjectId: req.params.projectid
+                ProjectId: req.params.projectid,
+                UserId: req.params.userid
             }
         }).then(result => {
             res.json(result)
@@ -38,7 +57,8 @@ module.exports = {
         ProjectCriteria.destroy({
             where: {
                 CriterionId: req.params.criterionid,
-                ProjectId: req.params.projectid
+                ProjectId: req.params.projectid,
+                UserId: req.params.userid
             }
         })
             .then(_ => res.status(204).send())
