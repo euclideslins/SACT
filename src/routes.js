@@ -61,6 +61,7 @@ module.exports = app => {
       .get(ProjectCriterionController.index)
 
    app.route('/prc/:projectid/:criterionid/:userid')
+      .post(ProjectCriterionController.store)
       .get(ProjectCriterionController.show)
       .put(ProjectCriterionController.update)
       .delete(ProjectCriterionController.delete);
