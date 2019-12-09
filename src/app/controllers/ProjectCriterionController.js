@@ -2,7 +2,7 @@ const { ProjectCriteria } = require("../models");
 const Sequelize = require('sequelize');
 
 module.exports = {
-    index(req,res){
+    index(req, res) {
         ProjectCriteria.findAll()
             .then(result => res.json(result))
             .catch(err => res.status(500).send({ "error": err }));
@@ -34,7 +34,7 @@ module.exports = {
         }).catch(err => res.status(500).send({ "error": err }));
     },
 
-    delete(req, res){
+    delete(req, res) {
         ProjectCriteria.destroy({
             where: {
                 CriterionId: req.params.criterionid,
@@ -42,6 +42,27 @@ module.exports = {
             }
         })
             .then(_ => res.status(204).send())
+            .catch(err => res.status(500).send({ "error": err }));
+    },
+
+    indexByUser(req, res) {
+        ProjectCriteria.findAll({
+            where: {
+                UserId: req.params.userid
+            }
+        })
+            .then(result => res.json(result))
+            .catch(err => res.status(500).send({ "error": err }));
+    },
+
+    showByUser(req, res) {
+        ProjectCriteria.findOne({
+            where: {
+                UserId: req.params.userid,
+                ProjectId: req.params.projectid
+            }
+        })
+            .then(result => res.json(result))
             .catch(err => res.status(500).send({ "error": err }));
     }
 

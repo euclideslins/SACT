@@ -3,16 +3,16 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn(
-      'Users',
-      'available',
-      Sequelize.BOOLEAN
+      'ProjectCriteria',
+      'UserId',
+      Sequelize.INTEGER
     );
   },
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.removeColumn(
-      'Users',
-      'available',
+      'ProjectCriteria',
+      'UserId',
     );
   }
 };
