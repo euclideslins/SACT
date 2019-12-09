@@ -2,6 +2,7 @@ const UserController = require("./app/controllers/UserController");
 const ProjectController = require("./app/controllers/ProjectController");
 const SectionController = require('./app/controllers/SectionController');
 const CriterionController = require('./app/controllers/CriterionController');
+const ProjectCriterionController = require('./app/controllers/ProjectCriterionController');
 
 const Login = require('./app/controllers/Authenticate/Login');
 
@@ -54,4 +55,13 @@ module.exports = app => {
       .get(CriterionController.show)
       .put(CriterionController.update)
       .delete(CriterionController.delete)
+    
+    /** ProjectCriteria Routes */
+    app.route('/prc')
+       .get(ProjectCriterionController.index)
+
+    app.route('/prc/:projectid/:criterionid')
+       .get(ProjectCriterionController.show)
+       .put(ProjectCriterionController.update)
+       .delete(ProjectCriterionController.delete);
 }
